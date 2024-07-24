@@ -1,5 +1,6 @@
 package TIcTacToe.models;
 
+import TIcTacToe.factory.BotPlayingStrategyFactory;
 import TIcTacToe.strategies.botPlayingStrategies.BotPlayingStrategy;
 
 public class Bot extends Player{
@@ -9,10 +10,10 @@ public class Bot extends Player{
     /*
     Bot bot = new Bot(name, symbol, diffLevel, playStrategy);
      */
-    public Bot(String name, Symbol symbol, BotDifficultyLevel botDifficultyLevel, BotPlayingStrategy botPlayingStrategy){
+    public Bot(String name, Symbol symbol, BotDifficultyLevel botDifficultyLevel){
         super(name, symbol, PlayerType.BOT);
         this.botDifficultyLevel = botDifficultyLevel;
-        this.botPlayingStrategy = botPlayingStrategy;
+        this.botPlayingStrategy = BotPlayingStrategyFactory.getBotPlayingStrategy(botDifficultyLevel);
     }
 
     public BotDifficultyLevel getBotDifficultyLevel() {
@@ -29,5 +30,13 @@ public class Bot extends Player{
 
     public void setBotPlayingStrategy(BotPlayingStrategy botPlayingStrategy) {
         this.botPlayingStrategy = botPlayingStrategy;
+    }
+
+    @Override
+    public Move makeMove(Board board) {
+        Move move = botPlayingStrategy.makeMove(board);
+        move.setPlayer(this);
+
+        return move;
     }
 }

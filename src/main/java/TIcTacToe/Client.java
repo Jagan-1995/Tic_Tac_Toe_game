@@ -30,7 +30,7 @@ public class Client {
         int dimension = 3;
         List<Player> players = new ArrayList<>();
         players.add(new Player("Jagan", new Symbol('X'), PlayerType.HUMAN));
-        players.add(new Player("Baskar", new Symbol('O'), PlayerType.HUMAN));
+        players.add(new Bot("JarvisBot", new Symbol('O'), BotDifficultyLevel.EASY));
 
         List<WinningStrategy> winningStrategies = new ArrayList<>();
         winningStrategies.add(new RowWinningStrategy());
@@ -44,7 +44,7 @@ public class Client {
                                     winningStrategies
         );
 
-        gameController.printBoard(game);
+//        gameController.printBoard(game);
         // while comparing objects use .equals
         while (game.getGameState().equals(GameState.IN_PROGRESS)){
             /*
